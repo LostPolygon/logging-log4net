@@ -752,8 +752,9 @@ namespace log4net.Core
 						try
 						{
                             LogLog.Debug(declaringType, "Loading and watching configuration for default repository from AppSettings specified Config path [" + repositoryConfigFilePath + "]");
-
+#if (!NETCF && !SSCLI)
                             XmlConfigurator.ConfigureAndWatch(repository, repositoryConfigFileInfo);
+#endif
 						}
 						catch (Exception ex)
 						{

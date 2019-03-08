@@ -344,7 +344,7 @@ namespace log4net.Appender
 
 			private void AcceptConnection()
 			{
-#if NETSTANDARD1_3
+#if NETSTANDARD1_3 && !UNITY
 				m_serverSocket.AcceptAsync().ContinueWith(OnConnect, TaskScheduler.Default);
 #else
 				m_serverSocket.BeginAccept(new AsyncCallback(OnConnect), null);
@@ -431,7 +431,7 @@ namespace log4net.Appender
 			}
 			
 
-#if NETSTANDARD1_3
+#if NETSTANDARD1_3 && !UNITY
 			private void OnConnect(Task<Socket> acceptTask)
 #else
 			/// <summary>
@@ -449,7 +449,7 @@ namespace log4net.Appender
 			{
 				try
 				{
-#if NETSTANDARD1_3
+#if NETSTANDARD1_3 && !UNITY
 					Socket socket = acceptTask.GetAwaiter().GetResult();
 #else
 					// Block until a client connects
